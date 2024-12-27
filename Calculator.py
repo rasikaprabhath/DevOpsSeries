@@ -1,4 +1,4 @@
-
+# demo a basic calculator using conditional statmemtes and functions
 def input_numbers():
     try:
         first_no = float(input("enter the first no : "))
@@ -44,5 +44,5 @@ def main(response):
     else:
         print("Pls enter a vlaid number")
 
-response = input_numbers()
-main(response)
+res = input_numbers()
+main(res)
