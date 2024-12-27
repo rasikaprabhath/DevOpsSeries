@@ -6,7 +6,10 @@ for folder in folders:
     counter = 1
     try:
         files = os.listdir(folder)
+        print(" ")
+        print(" ")
         print(f"Files exists under {folder} are as follows : ")
+        print(" ")
     except FileNotFoundError:
         print(f"pls enter a valid folder with the actual path. Folder  {folder} does not exits")
         break
