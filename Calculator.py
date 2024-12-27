@@ -44,5 +44,5 @@ def main(response):
     else:
         print("Pls enter a vlaid number")
 
-res = input_numbers()
-main(res)
+respo = input_numbers()
+main(respo)
