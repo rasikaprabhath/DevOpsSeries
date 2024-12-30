@@ -6,7 +6,7 @@ def list_s3_buckets():
 # Output the bucket names using the "Buckets" parameter
     print('Existing buckets are:')
     for param in s3cleint['Buckets']:
-        print(f'Bucket Name : {param["Name"]} - Create Date & Time : {param["CreationDate"]}')
-
+       #print(f'Bucket Name : {param["Name"]} - Create Date & Time : {param["CreationDate"]}')
+        return param["Name"]
 #invoking the bucket function
-list_s3_buckets()
+#list_s3_buckets()
