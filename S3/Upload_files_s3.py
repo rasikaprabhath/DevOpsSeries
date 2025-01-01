@@ -8,7 +8,7 @@ import os
 
 listbuckets=s3buckets.list_s3_buckets()
 
-def upload_files(listbuckets):
+def enter_files():
 
     selectBucket = input("Enter the Bucket to upload files : ")
     filename = input("Enter the File Name")
@@ -24,9 +24,10 @@ def upload_files(listbuckets):
         print("path does not have a file. But will take the already enterd file name as the valid file and upload it to the S3 Bucket")
 #removes the leading and trailing spaces in the string assinged to file name by strip()
         pathname=pathname+"\\"+ filename.strip()
-        print(pathname)
+        listNames=[selectBucket,filename,pathname]
+        return listNames
 
-
+def upload_files(listbuckets, pathname, selectBucket, filename):
     for param in listbuckets['Buckets']:
         try:
             if selectBucket == param["Name"]:
@@ -39,6 +40,44 @@ def upload_files(listbuckets):
             logging.error(e)
             return False
 
+def check_files(listbuckets, pathname, selectS3, filename):
+    for param in listbuckets['Buckets']:
 
+        if selectS3==param['Name']:
+            s3client = boto3.client('s3')
+            listfilesDic=s3client.list_objects(
+                Bucket=selectS3
+            )
+            listfiles=listfilesDic["Contents"]
+            length = len(listfiles)
 
-upload_files(listbuckets)
+            l=0
+            existance =0
+            for lf in listfiles:
+                listcontent=listfiles[l]
+                l=l+1
+                #print(listcontent["Key"])
+
+                if listcontent["Key"]==filename.strip():
+                    existance =1
+
+                else:
+                    existance = 0
+                if existance==1:
+                    status = input("file already exits, Do yo want to replace :  type Yes or No : ")
+                    if status.upper()=="YES":
+                        upload_files(listbuckets, pathname, selectS3, filename)
+                    elif status.upper()=="NO":
+                        print(" File was not uploaded")
+                    else:
+                        status = input("Your input is not valid. Do yo want to replace the file:  type Yes or No :")
+            if existance==0:
+                upload_files(listbuckets, pathname, selectBucket,filename)
+
+            break
+
+listNames = enter_files()
+selectBucket=listNames[0]
+filename=listNames[1]
+pathname=listNames[2]
+check_files(listbuckets,  pathname, selectBucket,filename)
