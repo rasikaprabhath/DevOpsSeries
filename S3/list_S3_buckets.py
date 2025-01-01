@@ -9,4 +9,4 @@ def list_s3_buckets():
        print(f'Bucket Name : {param["Name"]} - Create Date & Time : {param["CreationDate"]}')
     return s3cleint
 #invoking the bucket function
-list_s3_buckets()
+#list_s3_buckets()
