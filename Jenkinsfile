@@ -26,7 +26,10 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'pytest --junitxml=pytest.xml'
+                sh '''
+                    export PATH="/tmp/pip/bin:$PATH"
+                    pytest --junitxml=pytest.xml
+                '''
             }
         }
     }
