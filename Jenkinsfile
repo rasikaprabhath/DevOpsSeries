@@ -19,7 +19,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip install pytest'
+                sh 'pip install --user pytest'
             }
         }
 
@@ -27,6 +27,9 @@ pipeline {
             steps {
                 sh 'pytest test_calculator.py'
             }
+            steps{
+                sh 'pytest --junitxml=pytest.xml'
+            }    
         }
     }
 
