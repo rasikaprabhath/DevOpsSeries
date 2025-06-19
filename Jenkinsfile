@@ -7,8 +7,7 @@ pipeline {
     }
 
     environment {
-        PYTHONPATH = '/tmp/pip/lib/python3.10/site-packages'
-        PATH = '/tmp/pip/bin:$PATH' 
+        PATH+PYTEST = '/tmp/pip/bin' 
     }
 
     stages {
