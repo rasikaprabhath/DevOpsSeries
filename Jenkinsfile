@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        'PATH+PYTEST' = '/tmp/pip/bin'
+        "PATH+PYTEST" = "/tmp/pip/bin"
     }
 
     stages {
