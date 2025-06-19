@@ -26,8 +26,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh 'pytest test_calculator.py'
-            }
-            steps{
+    
                 sh 'pytest --junitxml=pytest.xml'
             }    
         }
