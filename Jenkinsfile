@@ -1,13 +1,13 @@
 pipeline {
     agent {
         docker {
-            image 'python:3.10'  // Use official Python Docker image
+            image 'python:3.10'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
     environment {
-        PIP_DISABLE_PIP_VERSION_CHECK = '1'
+        PYTHONPATH = '/tmp/pip/lib/python3.10/site-packages'
     }
 
     stages {
@@ -19,22 +19,20 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip install --user pytest'
+                sh 'pip install --prefix=/tmp/pip pytest'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'pytest test_calculator.py'
-    
                 sh 'pytest --junitxml=pytest.xml'
-            }    
+            }
         }
     }
 
     post {
         always {
-            junit 'pytest.xml' // optional, if using junit-style test results
+            junit 'pytest.xml'
         }
         success {
             echo 'Tests passed successfully.'
