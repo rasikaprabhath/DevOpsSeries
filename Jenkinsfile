@@ -28,7 +28,6 @@ pipeline {
             steps {
                 sh '''
                     export PATH="/tmp/pip/bin:$PATH"
-                    export PYTHONPATH=.
                     pytest --junitxml=pytest.xml
                 '''
             }
